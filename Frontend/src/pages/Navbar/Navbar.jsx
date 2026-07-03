@@ -78,20 +78,10 @@ function ActionIcon({ type }) {
 }
 
 export default function Navbar({ isLoggedIn = false }) {
-  const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const onClickOutside = (event) => {
@@ -137,11 +127,7 @@ export default function Navbar({ isLoggedIn = false }) {
     }`;
 
   return (
-    <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 shadow-sm backdrop-blur-md" : "bg-transparent"
-      }`}
-    >
+    <header className="fixed left-0 right-0 top-0 z-50 bg-white shadow-sm backdrop-blur-md transition-all duration-300">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="/" className="group flex items-center gap-2" onClick={handleNavigate}>
           <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-blue-800 transition-transform group-hover:rotate-6">

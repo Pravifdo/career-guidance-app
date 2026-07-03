@@ -1,11 +1,11 @@
-import heroImage from "./images/images (1).jpeg";
+import heroImage from "./images/images (10).jpeg";
 import ServicesBox from "./box/box";
 
 export default function Home() {
   return (
-    <main className="bg-white">
+    <main className="bg-black">
       <section className="pt-20">
-        <div className="relative min-h-[calc(100vh-5rem)] w-full overflow-hidden bg-white">
+        <div className="relative min-h-[calc(100vh-5rem)] w-full overflow-hidden bg-black">
           {/* Background Image */}
           <img
             src={heroImage}
@@ -13,12 +13,12 @@ export default function Home() {
             className="absolute inset-0 h-full w-full object-cover"
           />
 
-          {/* Soft Overlay */}
-          <div className="absolute inset-0 bg-white/45" />
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/70" />
 
           {/* Content */}
-          <div className="relative z-10 flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center px-6 text-center text-slate-900">
-            <p className="text-sm tracking-widest text-blue-700">
+          <div className="relative z-10 flex min-h-[calc(100vh-5rem)] flex-col justify-center items-start text-left px-10 text-white max-w-2xl">
+            <p className="text-sm tracking-widest text-blue-300">
               Your Career Journey Starts Here
             </p>
 
@@ -28,7 +28,7 @@ export default function Home() {
               With Confidence
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg text-slate-700">
+            <p className="mt-6 max-w-2xl text-lg text-slate-200">
               Request professional career documents and explore internship opportunities all in one place.
             </p>
 
@@ -38,7 +38,7 @@ export default function Home() {
                 Get Started
               </button>
 
-              <button className="rounded-full border border-slate-300 px-8 py-3 font-medium text-slate-900 hover:bg-white hover:text-black">
+              <button className="rounded-full border border-white px-8 py-3 font-medium text-white hover:bg-white hover:text-black">
                 Explore Services
               </button>
             </div>
