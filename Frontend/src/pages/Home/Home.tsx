@@ -1,9 +1,12 @@
 import heroImage from "./images/images (10).jpeg";
 import ServicesBox from "./box/box";
+import HomeSecound from "./HomeSecound";
+import HomeThird from "./Hometherd";
 
 export default function Home() {
   return (
     <main className="bg-black">
+      
       <section className="pt-20">
         <div className="relative min-h-[calc(100vh-5rem)] w-full overflow-hidden bg-black">
           {/* Background Image */}
@@ -46,6 +49,8 @@ export default function Home() {
         </div>
       </section>
       <ServicesBox />
+      <HomeSecound/>
+      <HomeThird/>
     </main>
     
   );
