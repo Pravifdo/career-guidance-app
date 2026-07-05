@@ -1,63 +1,77 @@
-import { motion } from "framer-motion";
+import cvImg from "./images/cv.jpeg";
+import coverImg from "./images/cover.jpeg";
+import reportImg from "./images/report.jpeg";
+import proposalImg from "./images/proposal.jpeg";
+import internshipImg from "./images/internship.jpeg";
 
 function HomeThird() {
   const services = [
     {
       title: "CV Writing",
+      image: cvImg,
       description:
-        "Create a professional, ATS-friendly CV that highlights your skills, experience, and achievements. Our expert writers help you make a strong first impression and increase your chances of landing interviews.",
+        "Create a professional, ATS-friendly CV that highlights your skills, experience, and achievements.",
     },
     {
       title: "Cover Letter",
-      description:
-        "A compelling cover letter tailored to your dream job. Showcase your strengths, express your passion, and stand out from other applicants with a professionally written letter.",
+      image: coverImg,
+      description: "A compelling cover letter tailored to your dream job.",
     },
     {
       title: "Final Report",
-      description:
-        "Get professionally formatted and well-structured academic reports that meet university standards. We ensure clarity, quality, and a polished presentation for your final submission.",
+      image: reportImg,
+      description: "Get professionally formatted academic reports.",
     },
     {
       title: "Proposal",
-      description:
-        "Transform your ideas into a clear and persuasive project proposal. We create professional proposals with proper structure, research, and formatting to impress supervisors and clients.",
+      image: proposalImg,
+      description: "Transform your ideas into a clear project proposal.",
     },
     {
       title: "Internships",
+      image: internshipImg,
       description:
-        "Discover internship opportunities from trusted companies and kick-start your professional journey. Connect with employers and gain valuable industry experience for your future career.",
+        "Discover internship opportunities from trusted companies.",
     },
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20">
-      <div className="space-y-10">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: index * 0.15,
-              ease: "easeOut",
-            }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: 1.03,
-              y: -8,
-            }}
-            className="bg-white rounded-3xl shadow-lg p-8 border border-gray-100 transition-all duration-300 hover:shadow-2xl cursor-pointer"
-          >
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              {service.title}
-            </h2>
+    <section className="w-full px-10 py-20">
+      <div className="flex flex-col space-y-10">
 
-            <p className="text-gray-600 text-lg leading-8">
-              {service.description}
-            </p>
-          </motion.div>
-        ))}
+        {services.map((service, index) => {
+          const isReversed = index % 2 !== 0;
+
+          return (
+            <div
+              key={index}
+              className={`w-full max-w-5xl flex bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden ${
+                isReversed ? "flex-row-reverse ml-auto" : "mr-auto"
+              }`}
+            >
+              {/* TEXT SIDE */}
+              <div className="w-1/2 flex flex-col justify-center p-10">
+                <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                  {service.title}
+                </h2>
+
+                <p className="text-gray-600 text-lg leading-7">
+                  {service.description}
+                </p>
+              </div>
+
+              {/* IMAGE SIDE */}
+              <div className="w-1/2">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-[350px] object-cover"
+                />
+              </div>
+            </div>
+          );
+        })}
+
       </div>
     </section>
   );

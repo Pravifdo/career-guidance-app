@@ -1,6 +1,6 @@
 import heroImage from "./images/images (10).jpeg";
 import ServicesBox from "./box/box";
-import HomeSecound from "./HomeSecound";
+//import HomeSecound from "./HomeSecound";
 import HomeThird from "./Hometherd";
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
       </section>
       <ServicesBox />
-      <HomeSecound/>
+  
       <HomeThird/>
     </main>
     
