@@ -1,7 +1,7 @@
 import heroImage from "./images/images (10).jpeg";
 import ServicesBox from "./box/box";
-//import HomeSecound from "./HomeSecound";
 import HomeThird from "./Hometherd";
+import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -48,6 +48,7 @@ export default function Home() {
       <ServicesBox />
   
       <HomeThird/>
+      <Footer />
     </main>
     
   );
