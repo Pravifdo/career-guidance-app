@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const services = [
   { label: "CV Writing", path: "/services/cv-writing", mark: "CV" },
@@ -15,7 +16,7 @@ const navItems = [
   { label: "Contact", href: "/contact" },
 ];
 
-function isActivePath(href, currentPath) {
+function isActivePath(href: string, currentPath: string) {
   if (href === "/") {
     return currentPath === "/";
   }
@@ -42,7 +43,7 @@ function CloseIcon() {
   );
 }
 
-function ChevronIcon({ open = false }) {
+function ChevronIcon({ open = false }: { open?: boolean }) {
   return (
     <svg
       viewBox="0 0 20 20"
@@ -58,7 +59,7 @@ function ChevronIcon({ open = false }) {
   );
 }
 
-function ActionIcon({ type }) {
+function ActionIcon({ type }: { type: string }) {
   if (type === "bell") {
     return (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -77,15 +78,16 @@ function ActionIcon({ type }) {
   );
 }
 
-export default function Navbar({ isLoggedIn = false }) {
+export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
-  const dropdownRef = useRef(null);
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const onClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setServicesOpen(false);
       }
     };
@@ -103,25 +105,16 @@ export default function Navbar({ isLoggedIn = false }) {
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    const onPopState = () => setCurrentPath(window.location.pathname);
-
-    window.addEventListener("popstate", onPopState);
-
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
   const closeMobileMenu = () => {
     setMobileOpen(false);
     setServicesOpen(false);
   };
 
   const handleNavigate = () => {
-    setCurrentPath(window.location.pathname);
     closeMobileMenu();
   };
 
-  const navLinkClass = (href) =>
+  const navLinkClass = (href: string) =>
     `relative py-2 text-[15px] font-medium transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 ${
       isActivePath(href, currentPath) ? "text-blue-800 after:w-full" : "text-slate-700 hover:text-blue-800 after:w-0 hover:after:w-full"
     }`;
@@ -129,20 +122,20 @@ export default function Navbar({ isLoggedIn = false }) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 bg-white shadow-sm backdrop-blur-md transition-all duration-300">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="/" className="group flex items-center gap-2" onClick={handleNavigate}>
+        <Link to="/" className="group flex items-center gap-2" onClick={handleNavigate}>
           <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-blue-800 transition-transform group-hover:rotate-6">
             <span className="h-2.5 w-2.5 rounded-full bg-sky-400 transition-transform group-hover:scale-125" />
           </span>
           <span className="text-xl font-semibold tracking-tight text-slate-900">
             Career<span className="text-blue-700">Hub</span>
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
           {navItems.slice(0, 2).map((item) => (
-            <a key={item.href} href={item.href} className={navLinkClass(item.href)} onClick={handleNavigate}>
+            <Link key={item.href} to={item.href} className={navLinkClass(item.href)} onClick={handleNavigate}>
               {item.label}
-            </a>
+            </Link>
           ))}
 
           <div className="relative" ref={dropdownRef}>
@@ -161,9 +154,9 @@ export default function Navbar({ isLoggedIn = false }) {
             {servicesOpen && (
               <div className="absolute left-1/2 top-full mt-3 w-72 -translate-x-1/2 rounded-xl border border-slate-100 bg-white p-2 shadow-xl">
                 {services.map((service) => (
-                  <a
+                  <Link
                     key={service.path}
-                    href={service.path}
+                    to={service.path}
                     onClick={() => {
                       setServicesOpen(false);
                       handleNavigate();
@@ -174,19 +167,19 @@ export default function Navbar({ isLoggedIn = false }) {
                       {service.mark}
                     </span>
                     {service.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
 
-          <a href="/internships" className={navLinkClass("/internships")} onClick={handleNavigate}>
+          <Link to="/internships" className={navLinkClass("/internships")} onClick={handleNavigate}>
             Internships
-          </a>
+          </Link>
           {!isLoggedIn && (
-            <a href="/contact" className={navLinkClass("/contact")} onClick={handleNavigate}>
+            <Link to="/contact" className={navLinkClass("/contact")} onClick={handleNavigate}>
               Contact
-            </a>
+            </Link>
           )}
         </div>
 
@@ -198,13 +191,13 @@ export default function Navbar({ isLoggedIn = false }) {
                   <ActionIcon type="bell" />
                 </span>
               </button>
-              <a
-                href="/dashboard"
+              <Link
+                to="/dashboard"
                 className="rounded-full bg-blue-800 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-900"
                 onClick={handleNavigate}
               >
                 Dashboard
-              </a>
+              </Link>
               <button type="button" className="rounded-full p-2 text-slate-600 transition-colors hover:bg-slate-100" aria-label="Profile">
                 <span className="block h-5 w-5">
                   <ActionIcon type="user" />
@@ -213,12 +206,12 @@ export default function Navbar({ isLoggedIn = false }) {
             </>
           ) : (
             <>
-              <a href="/login" className="rounded-full px-5 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-blue-800" onClick={handleNavigate}>
+              <Link to="/login" className="rounded-full px-5 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-blue-800" onClick={handleNavigate}>
                 Login
-              </a>
-              <a href="/register" className="rounded-full bg-blue-800 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-900" onClick={handleNavigate}>
+              </Link>
+              <Link to="/register" className="rounded-full bg-blue-800 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-900" onClick={handleNavigate}>
                 Register
-              </a>
+              </Link>
             </>
           )}
         </div>
@@ -241,9 +234,9 @@ export default function Navbar({ isLoggedIn = false }) {
       >
         <div className="flex flex-col gap-1 px-6 py-4">
           {navItems.slice(0, 2).map((item) => (
-            <a key={item.href} href={item.href} onClick={handleNavigate} className="rounded-lg px-3 py-3 text-slate-700 hover:bg-blue-50">
+            <Link key={item.href} to={item.href} onClick={handleNavigate} className="rounded-lg px-3 py-3 text-slate-700 hover:bg-blue-50">
               {item.label}
-            </a>
+            </Link>
           ))}
 
           <details className="group rounded-lg px-3 py-1">
@@ -255,9 +248,9 @@ export default function Navbar({ isLoggedIn = false }) {
             </summary>
             <div className="ml-2 mt-1 flex flex-col gap-1 border-l border-slate-100 pl-3">
               {services.map((service) => (
-                <a
+                <Link
                   key={service.path}
-                  href={service.path}
+                  to={service.path}
                   onClick={handleNavigate}
                   className="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-blue-800"
                 >
@@ -265,27 +258,27 @@ export default function Navbar({ isLoggedIn = false }) {
                     {service.mark}
                   </span>
                   {service.label}
-                </a>
+                </Link>
               ))}
             </div>
           </details>
 
-          <a href="/internships" onClick={handleNavigate} className="rounded-lg px-3 py-3 text-slate-700 hover:bg-blue-50">
+          <Link to="/internships" onClick={handleNavigate} className="rounded-lg px-3 py-3 text-slate-700 hover:bg-blue-50">
             Internships
-          </a>
+          </Link>
 
           {isLoggedIn ? (
-            <a href="/dashboard" onClick={handleNavigate} className="mt-2 rounded-full bg-blue-800 px-4 py-3 text-center text-white">
+            <Link to="/dashboard" onClick={handleNavigate} className="mt-2 rounded-full bg-blue-800 px-4 py-3 text-center text-white">
               Dashboard
-            </a>
+            </Link>
           ) : (
             <div className="mt-2 flex flex-col gap-2">
-              <a href="/login" onClick={handleNavigate} className="rounded-full border border-slate-200 px-4 py-3 text-center text-slate-700">
+              <Link to="/login" onClick={handleNavigate} className="rounded-full border border-slate-200 px-4 py-3 text-center text-slate-700">
                 Login
-              </a>
-              <a href="/register" onClick={handleNavigate} className="rounded-full bg-blue-800 px-4 py-3 text-center text-white">
+              </Link>
+              <Link to="/register" onClick={handleNavigate} className="rounded-full bg-blue-800 px-4 py-3 text-center text-white">
                 Register
-              </a>
+              </Link>
             </div>
           )}
         </div>
