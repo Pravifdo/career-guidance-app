@@ -1,42 +1,51 @@
 import React from "react";
 import { LuCircleCheck, LuFileText, LuShieldCheck, LuSparkles } from "react-icons/lu";
 
+// Import images using Vite asset imports
+import templateImg from "./images/cvtemplet.jpeg";
+import experienceImg from "./images/experience.jpeg";
+import jobRoleImg from "./images/job-role.jpeg";
+import skillsImg from "./images/skills.jpeg";
+import educationImg from "./images/education.jpeg";
+import certificationsImg from "./images/certifications.jpeg";
+import cvHeroImg from "./images/template.jpeg";
+
 const steps = [
   {
     title: "Choose a Template",
     description:
       "Select from professional CV templates designed to help you create a modern and job-winning resume.",
-    image: "/images/template.png",
+    image: templateImg,
   },
   {
     title: "Add Your Experience",
     description:
       "Easily add your work history, achievements, and professional experience with our simple editor.",
-    image: "/images/experience.png",
+    image: experienceImg,
   },
   {
     title: "Select Your Job Role",
     description:
       "Choose your target job role and customize your CV to match your career goals.",
-    image: "/images/job-role.png",
+    image: jobRoleImg,
   },
   {
     title: "Add Your Skills",
     description:
       "Highlight your skills and strengths to make your resume stand out to employers.",
-    image: "/images/skills.png",
+    image: skillsImg,
   },
   {
     title: "Add Your Education",
     description:
       "Show your academic background, qualifications, and educational achievements.",
-    image: "/images/education.png",
+    image: educationImg,
   },
   {
     title: "Add Your Certifications",
     description:
       "Include your certificates and professional training to improve your profile.",
-    image: "/images/certifications.png",
+    image: certificationsImg,
   },
 ];
 
@@ -83,7 +92,7 @@ export default function CVWriting() {
           <div className="flex justify-center">
 
             <img
-              src="/images/cv-template.png"
+              src={cvHeroImg}
               alt="CV Template"
               className="w-full max-w-md rounded-2xl shadow-xl hover:scale-105 transition duration-300"
             />
